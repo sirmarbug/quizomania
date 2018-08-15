@@ -1,13 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view/>
   </div>
 </template>
 
 <script>
+
+import Home from "./components/Home";
+import questions from "./questions";
+
 export default {
-  name: 'App'
+  name: 'App',
+  data() {
+    return {
+      questions: questions
+    }
+  },
+  mounted: function () {
+    console.log(this.questions);
+  },
+  components: {
+    Home
+  }
 }
 </script>
 
