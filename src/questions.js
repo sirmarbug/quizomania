@@ -7,6 +7,11 @@ export default [
   {
     question: "Jakiego koloru jest kolorowy maluch?",
     answers: ["niebieski", "czerwony", "zielony", "różowy"],
-    goodAnswers: ["niebieski"]
+    goodAnswers: ["niebieski", "czerwony"]
+  },
+  {
+    question: "Jakiego koloru jest kolorowy maluch?",
+    answers: ["niebieski", "czerwony", "zielony", "różowy"],
+    goodAnswers: ["zielony", "różowy"]
   }
 ];
