@@ -1,7 +1,7 @@
 <template>
   <div v-if="question.goodAnswers.length === 1">
     <form action="#" @submit.prevent="submit">
-      <h1>{{ question.question }}</h1>
+      <h5>{{ question.question }}</h5>
       <p v-for="answer in question.answers" :key="answer">
         <label>
           <input name="group1" type="radio" :value="answer" v-model="odp" />
@@ -23,7 +23,7 @@
   </div>
   <div v-else>
     <form action="#" @submit.prevent="submit">
-      <h1>{{ question.question }}</h1>
+      <h5>{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
         <label>
           <input type="checkbox" class="filled-in" :value="ans" v-model="odp2"/>

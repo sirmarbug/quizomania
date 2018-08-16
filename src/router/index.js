@@ -6,6 +6,7 @@ Vue.use(Router);
 
 export default new Router({
   routes: [
+    { path: "/", redirect: "/0" },
     {
       path: '/:id',
       name: 'Home',
