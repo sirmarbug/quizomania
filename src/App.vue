@@ -6,6 +6,14 @@
       </div>
     </nav>
     <router-view/>
+    <footer class="page-footer">
+      <div class="footer-copyright">
+        <div class="container">
+          Aplikacja powstała dla mojego cudownego Kotusia ;*
+          <span class="grey-text text-lighten-4 right">Autor: Mariusz Bugajski</span>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -32,5 +40,18 @@
     text-align: center;
     color: #2c3e50;
   }
+
+  .page-footer {
+    padding: 0;
+  }
+
+  @media only screen and (min-width: 480px) {
+    .page-footer {
+      position:fixed;
+      bottom:0;
+      left:0;
+      width:100%;
+    }
+}
 
 </style>
