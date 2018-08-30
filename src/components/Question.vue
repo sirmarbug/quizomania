@@ -2,7 +2,7 @@
   <div v-if="question.goodAnswers.length === 1">
     <form action="#" @submit.prevent="submit">
       <h5>{{ question.question }}</h5>
-      <p v-for="answer in question.answers" :key="answer">
+      <p v-for="answer in ans" :key="answer">
         <label>
           <input name="group1" type="radio" :value="answer" v-model="odp" />
           <span>{{ answer }}</span>
@@ -53,7 +53,8 @@
         odp: "",
         odp2: [],
         ok: false,
-        sub: false
+        sub: false,
+        ans: []
       }
     },
     watch: {
@@ -62,6 +63,7 @@
         this.odp2 = [];
         this.ok = false;
         this.sub = false;
+        this.ans = this._.shuffle(this.question.answers);
       }
     },
     methods: {
@@ -89,6 +91,9 @@
           }
         }
       }
+    },
+    mounted() {
+      this.ans = this._.shuffle(this.question.answers);
     }
   }
 
