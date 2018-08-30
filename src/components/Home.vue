@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h4>Pytanie {{ this.id }}</h4>
     <question :question="questions[id - 1]"></question>
     <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
     <button class="waves-effect waves-light btn" :disabled="id >= questions.length - 1" @click="nextQuestion">Następne</button>
