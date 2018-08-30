@@ -58,7 +58,6 @@
     },
     methods: {
       submit() {
-        console.log("Submit");
         this.sub = true;
         if (this.question.goodAnswers.length === 1) {
           if (this.odp === this.question.goodAnswers[0]) {
@@ -81,6 +80,7 @@
             this.ok = false;
           }
         }
+        this.$emit("submitAnswer", this.ok);
       }
     },
     mounted() {
@@ -98,12 +98,12 @@
   }
 
   .good {
-    background: #26a69a;
+    background: #77ddd4;
     color: #2c3e50;
   }
 
   .bad {
-    background: #ee6e73;
+    background: #efb1b3;
     color: #2c3e50;
   }
 
