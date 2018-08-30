@@ -8,7 +8,7 @@
           <span :class="{'good': sub && answer === question.goodAnswers[0], 'bad': sub && answer !== question.goodAnswers[0] && odp === answer}">{{ answer }}</span>
         </label>
       </p>
-      <button type="submit" class="waves-effect waves-light btn" :disabled="!odp">Sprawdź</button>
+      <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub">Sprawdź</button>
     </form>
   </div>
   <div v-else>
@@ -58,6 +58,7 @@
     },
     methods: {
       submit() {
+        console.log("Submit");
         this.sub = true;
         if (this.question.goodAnswers.length === 1) {
           if (this.odp === this.question.goodAnswers[0]) {
