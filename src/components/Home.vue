@@ -1,7 +1,7 @@
 <template>
   <div>
-    <question :question="questions[id]"></question>
-    <button class="waves-effect waves-light btn" :disabled="id <= 0" @click="prevQuerstion">Poprzednie</button>
+    <question :question="questions[id - 1]"></question>
+    <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
     <button class="waves-effect waves-light btn" :disabled="id >= questions.length - 1" @click="nextQuestion">Następne</button>
   </div>
 </template>
