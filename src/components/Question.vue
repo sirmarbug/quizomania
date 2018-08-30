@@ -5,19 +5,9 @@
       <p v-for="answer in ans" :key="answer">
         <label>
           <input name="group1" type="radio" :value="answer" v-model="odp" />
-          <span>{{ answer }}</span>
+          <span :class="{'good': sub && answer === question.goodAnswers[0], 'bad': sub && answer !== question.goodAnswers[0] && odp === answer}">{{ answer }}</span>
         </label>
       </p>
-      <div class="result">
-        <div v-if="ok && sub">
-          <h5 class="center-align good">Poprawna odpowiedź</h5>
-        </div>
-        <div v-if="!ok && sub">
-          <h5 class="center-align bad">Błędna odpowiedź! Poprawna to:
-            <span v-for="ans in question.goodAnswers" :key="ans">{{ ans }}</span>
-          </h5>
-        </div>
-      </div>
       <button type="submit" class="waves-effect waves-light btn" :disabled="!odp">Sprawdź</button>
     </form>
   </div>
@@ -108,10 +98,12 @@
 
   .good {
     background: #26a69a;
+    color: #2c3e50;
   }
 
   .bad {
     background: #ee6e73;
+    color: #2c3e50;
   }
 
   .result {
