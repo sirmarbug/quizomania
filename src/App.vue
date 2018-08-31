@@ -2,18 +2,23 @@
   <div id="app">
     <nav>
       <div class="nav-wrapper">
-        <a href="#" class="brand-logo center">Quizomania</a>
+        <a href="#/" class="brand-logo center">Quizomania</a>
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+          <li>
+            <a href="#/learn/1">Nauka</a>
+          </li>
+        </ul>
       </div>
     </nav>
     <router-view/>
-    <footer class="page-footer">
+    <!-- <footer class="page-footer">
       <div class="footer-copyright">
         <div class="container">
           Aplikacja powstała dla mojego cudownego Kotusia ;*
           <span class="grey-text text-lighten-4 right">Autor: Mariusz Bugajski</span>
         </div>
       </div>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -47,11 +52,11 @@
 
   @media only screen and (min-width: 480px) {
     .page-footer {
-      position:fixed;
-      bottom:0;
-      left:0;
-      width:100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
-}
+  }
 
 </style>

@@ -4,7 +4,7 @@
       <h5>{{ question.question }}</h5>
       <p v-for="answer in ans" :key="answer">
         <label>
-          <input name="group1" type="radio" :value="answer" v-model="odp" />
+          <input name="group1" type="radio" :value="answer" :disabled="sub" v-model="odp" />
           <span :class="{'good': sub && answer === question.goodAnswers[0], 'bad': sub && answer !== question.goodAnswers[0] && odp === answer}">{{ answer }}</span>
         </label>
       </p>
@@ -16,11 +16,11 @@
       <h5>{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
         <label>
-          <input type="checkbox" class="filled-in" :value="ans" v-model="odp2"/>
-          <span>{{ ans }}</span>
+          <input type="checkbox" class="filled-in" :value="ans" :disabled="sub" v-model="odp2" />
+          <span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span>
         </label>
       </p>
-      <div class="result">
+      <!-- <div class="result">
         <div v-if="ok && sub">
           <h5 class="center-align good">Poprawna odpowiedź</h5>
         </div>
@@ -29,8 +29,8 @@
             <span v-for="ans in question.goodAnswers" :key="ans">{{ ans }} </span>
           </h5>
         </div>
-      </div>
-      <button type="submit" class="waves-effect waves-light btn" :disabled="odp2.length === 0">Sprawdź</button>
+      </div> -->
+      <button type="submit" class="waves-effect waves-light btn" :disabled="odp2.length === 0 || sub">Sprawdź</button>
     </form>
   </div>
 </template>
@@ -67,8 +67,8 @@
           }
         } else {
           let good = 0;
-          for(let i = 0; i < this.odp2.length; i++) {
-            for(let j = 0; j < this.question.goodAnswers.length; j++) {
+          for (let i = 0; i < this.odp2.length; i++) {
+            for (let j = 0; j < this.question.goodAnswers.length; j++) {
               if (this.odp2[i] === this.question.goodAnswers[j]) {
                 good++;
               }
@@ -81,6 +81,34 @@
           }
         }
         this.$emit("submitAnswer", this.ok);
+      },
+      checkedGood(val) {
+        if (this.sub) {
+            for (let j = 0; j < this.question.goodAnswers.length; j++) {
+              if (this.question.goodAnswers[j] === val) {
+                return true;
+              }
+          }
+        }
+        return false;
+      },
+      checkedBad(val) {
+        let odp = false;
+        if (this.sub) {
+          for (let i = 0; i < this.odp2.length; i++) {
+            for (let j = 0; j < this.question.goodAnswers.length; j++) {
+              if (this.odp2[i] === val) {
+                if (this.odp2[i] === this.question.goodAnswers[j]) {
+                  odp = true;
+                }
+              }
+            }
+            if (this.odp2[i] === val && !odp) {
+              return true;
+            }
+          }
+        }
+        return false;
       }
     },
     mounted() {
@@ -105,10 +133,6 @@
   .bad {
     background: #efb1b3;
     color: #2c3e50;
-  }
-
-  .result {
-    min-height: 50px;
   }
 
 </style>
