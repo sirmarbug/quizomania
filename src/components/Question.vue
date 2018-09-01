@@ -1,14 +1,15 @@
 <template>
-  <div v-if="question.goodAnswers.length === 1">
+  <div v-if="question.goodAnswers.length <= 1">
     <form action="#" @submit.prevent="submit">
+      <h5 class="alert" v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</h5>
       <h5>{{ question.question }}</h5>
       <p v-for="answer in ans" :key="answer">
         <label>
-          <input name="group1" type="radio" :value="answer" :disabled="sub" v-model="odp" />
+          <input name="group1" type="radio" :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0" v-model="odp" />
           <span :class="{'good': sub && answer === question.goodAnswers[0], 'bad': sub && answer !== question.goodAnswers[0] && odp === answer}">{{ answer }}</span>
         </label>
       </p>
-      <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub">Sprawdź</button>
+      <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</button>
     </form>
   </div>
   <div v-else>
@@ -133,6 +134,10 @@
   .bad {
     background: #efb1b3;
     color: #2c3e50;
+  }
+
+  .alert {
+    color: #b71c1c
   }
 
 </style>
