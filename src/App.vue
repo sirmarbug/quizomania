@@ -7,6 +7,9 @@
           <li>
             <a href="#/learn/1">Nauka</a>
           </li>
+          <li>
+            <a href="#/exam">Test</a>
+          </li>
         </ul>
       </div>
     </nav>

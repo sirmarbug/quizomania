@@ -6,7 +6,7 @@
       <p v-for="answer in ans" :key="answer">
         <label>
           <input name="group1" type="radio" :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0" v-model="odp" />
-          <span :class="{'good': sub && answer === question.goodAnswers[0], 'bad': sub && answer !== question.goodAnswers[0] && odp === answer}">{{ answer }}</span>
+          <span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span>
         </label>
       </p>
       <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</button>
@@ -38,7 +38,15 @@
 
 <script>
   export default {
-    props: ["question"],
+    props: {
+      question: {
+        type: Object
+      },
+      exam: {
+        type: Boolean,
+        default: false
+      }
+    },
     data() {
       return {
         odp: "",
@@ -49,7 +57,14 @@
       }
     },
     watch: {
-      "$route" () {
+      // "$route" () {
+      //   this.odp = "";
+      //   this.odp2 = [];
+      //   this.ok = false;
+      //   this.sub = false;
+      //   this.ans = this._.shuffle(this.question.answers);
+      // },
+      "question"() {
         this.odp = "";
         this.odp2 = [];
         this.ok = false;
@@ -84,7 +99,7 @@
         this.$emit("submitAnswer", this.ok);
       },
       checkedGood(val) {
-        if (this.sub) {
+        if (this.sub && !this.exam) {
             for (let j = 0; j < this.question.goodAnswers.length; j++) {
               if (this.question.goodAnswers[j] === val) {
                 return true;
@@ -95,7 +110,7 @@
       },
       checkedBad(val) {
         let odp = false;
-        if (this.sub) {
+        if (this.sub  && !this.exam) {
           for (let i = 0; i < this.odp2.length; i++) {
             for (let j = 0; j < this.question.goodAnswers.length; j++) {
               if (this.odp2[i] === val) {
@@ -113,6 +128,7 @@
       }
     },
     mounted() {
+      console.log(this.exam);
       this.ans = this._.shuffle(this.question.answers);
     }
   }

@@ -11,7 +11,7 @@
 <script>
   import Question from "./Question";
   import Statistics from "./Statistics";
-  import questions from "../question.js";
+  import questions from "../questions.js";
 
   export default {
     data() {
