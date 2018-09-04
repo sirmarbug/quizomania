@@ -8,12 +8,14 @@
         <button class="waves-effect waves-light btn" @click="start">Start</button>
     </div>
     <div v-if="isCount && !end">
-        <question :question="db[ques[nr - 1]]" :exam="true"></question>
+        <question :question="db[ques[nr - 1]]" :exam="true" @submitAnswer="submitAnswer"></question>
         <button class="waves-effect waves-light btn" v-if="nr < count" @click="next">Następny</button>
         <button class="waves-effect waves-light btn" v-if="nr === count" @click="stop">Zakończ</button>
     </div>
     <div v-if="count === nr && end">
-      <h2>Koniec</h2>
+      <exam-result :goodAns="goodAns" :badAns="badAns" :allAns="count"></exam-result>
+      <button class="waves-effect waves-light btn" @click="newExam">Nowy egzamin</button>
+      <!-- <question-result-exam v-for="que in q" :key="que.question" :question="que"></question-result-exam> -->
     </div>
   </div>
 </template>
@@ -21,6 +23,8 @@
 <script>
   import questions from "../questions.js";
   import Question from "./Question";
+  import ExamResult from "./ExamResult";
+  import QuestionResultExam from './QuestionResultExam';
 
   export default {
     data() {
@@ -30,7 +34,10 @@
             count: null,
             isCount: false,
             nr: 1,
-            end: false
+            end: false,
+            goodAns: 0,
+            badAns: 0,
+            q: []
       }
     },
     watch: {
@@ -54,6 +61,11 @@
                     }
                 }
             }
+
+            for(let i = 0; i < this.ques.length; i++ ) {
+              this.q.push(this.db[this.ques[i]]);
+            }
+            console.log(this.q);
             this.isCount = true;
         },
       next() {
@@ -61,10 +73,25 @@
       },
       stop() {
         this.end = true;
+      },
+      submitAnswer(ans) {
+        if (ans) this.goodAns++;
+        else this.badAns++;
+      },
+      newExam() {
+        this.ques = [];
+            this.count = null;
+            this.isCount = false;
+            this.nr = 1;
+            this.end = false;
+            this.goodAns = 0;
+            this.badAns = 0;
       }
     },
     components: {
-        Question
+        Question,
+        ExamResult,
+        QuestionResultExam
     },
     mounted() {
         for(let i = 0; i < questions.length - 1; i++){
