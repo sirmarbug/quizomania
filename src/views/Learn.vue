@@ -51,6 +51,11 @@
         this.allAns++;
         if (ans) this.goodAns++;
         else this.badAns++;
+        this.$log.debug("Test");
+        this.$log.info('test')
+        this.$log.warn('test')
+        this.$log.error('test')
+        this.$log.fatal('test')
       }
     },
     components: {
