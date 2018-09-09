@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>Pytanie {{ this.id }}</h4>
+    <h4>Pytanie {{ id }}/{{ questionCount }}</h4>
     <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
     <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
     <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
@@ -29,6 +29,11 @@
           this.$router.push(`/learn/1`);
         }
         this.id = Number(this.$route.params.id)
+      }
+    },
+    computed: {
+      questionCount() {
+        return this.questions.length;
       }
     },
     methods: {
