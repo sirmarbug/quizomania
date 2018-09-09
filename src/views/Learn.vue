@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>Pytanie {{ this.id }}</h4>
-    <question :question="questions[id - 1]" @submitAnswer="submitAnswer"></question>
+    <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
     <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
     <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
     <button class="waves-effect waves-light btn" :disabled="id >= questions.length" @click="nextQuestion">Następne</button>
@@ -9,9 +9,9 @@
 </template>
 
 <script>
-  import Question from "./Question";
-  import Statistics from "./Statistics";
-  import questions from "../questions.js";
+  import Question from "@components/Question";
+  import Statistics from "@components/Statistics";
+  import questions from "@/utils/question.js";
 
   export default {
     data() {

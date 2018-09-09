@@ -40,11 +40,13 @@
   export default {
     props: {
       question: {
-        type: Object
+        type: Object,
+        required: true
       },
       exam: {
         type: Boolean,
-        default: false
+        default: false,
+        required: true
       }
     },
     data() {

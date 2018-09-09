@@ -8,7 +8,7 @@
         <button class="waves-effect waves-light btn" @click="start">Start</button>
     </div>
     <div v-if="isCount && !end">
-        <question :question="db[ques[nr - 1]]" :exam="true" @submitAnswer="submitAnswer"></question>
+        <question :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
         <button class="waves-effect waves-light btn" v-if="nr < count" @click="next">Następny</button>
         <button class="waves-effect waves-light btn" v-if="nr === count" @click="stop">Zakończ</button>
     </div>
@@ -21,10 +21,10 @@
 </template>
 
 <script>
-  import questions from "../questions.js";
-  import Question from "./Question";
-  import ExamResult from "./ExamResult";
-  import QuestionResultExam from './QuestionResultExam';
+  import questions from "@/utils/questions.js";
+  import Question from "@components/Question";
+  import ExamResult from "@components/ExamResult";
+  import QuestionResultExam from '@components/QuestionResultExam';
 
   export default {
     data() {
@@ -99,6 +99,7 @@
                 this.db.push(questions[i]);
             }
         }
+        console.log(this.$route);
     }
   }
 

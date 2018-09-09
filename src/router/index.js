@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from '@/components/Home';
-import Learn from '@/components/Learn';
-import Exam from '@/components/Exam';
+import Home from '@views/Home';
+import Learn from '@views/Learn';
+import Exam from '@views/Exam';
 
 Vue.use(Router);
 
@@ -10,17 +10,17 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {
       path: "/exam",
-      name: 'Exam',
+      name: 'exam',
       component: Exam
     },
     {
       path: '/learn/:id',
-      name: 'Learn',
+      name: 'learn',
       component: Learn
     },
     {
