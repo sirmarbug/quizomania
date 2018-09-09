@@ -130,7 +130,7 @@
       }
     },
     mounted() {
-      console.log(this.exam);
+      this.$log.debug(this.exam);
       this.ans = this._.shuffle(this.question.answers);
     }
   }

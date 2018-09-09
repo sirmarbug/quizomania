@@ -65,7 +65,7 @@
             for(let i = 0; i < this.ques.length; i++ ) {
               this.q.push(this.db[this.ques[i]]);
             }
-            console.log(this.q);
+            this.$log.debug(this.q);
             this.isCount = true;
         },
       next() {
@@ -99,7 +99,7 @@
                 this.db.push(questions[i]);
             }
         }
-        console.log(this.$route);
+        this.$log.debug("Wartość route: ", this.$route);
     }
   }
 
