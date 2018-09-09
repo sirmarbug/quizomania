@@ -76,6 +76,9 @@
     },
     methods: {
       submit() {
+        this.$log.debug("Count = ", this.$store.state.count);
+        this.$store.commit("increment");
+        this.$log.debug("Count = ", this.$store.state.count);
         this.sub = true;
         if (this.question.goodAnswers.length === 1) {
           if (this.odp === this.question.goodAnswers[0]) {

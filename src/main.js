@@ -5,6 +5,7 @@ import App from './App';
 import router from './router';
 import VueLodash from 'vue-lodash';
 import VueLogger from 'vuejs-logger';
+import store from '@store/index.js'
 const isProduction = process.env.NODE_ENV === 'production';
 
 const options = {
@@ -28,5 +29,6 @@ new Vue({
   el: '#app',
   router,
   components: { App },
+  store,
   template: '<App/>'
 })
