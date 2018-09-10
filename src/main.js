@@ -9,6 +9,7 @@ import router from './router';
 import store from '@store/index';
 import messages from "@/translation/index";
 const isProduction = process.env.NODE_ENV === 'production';
+Vue.config.productionTip = false
 
 const options = {
     isEnabled: true,
@@ -28,8 +29,6 @@ const i18n = new VueI18n({
   locale: 'en',
   messages
 });
-
-Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

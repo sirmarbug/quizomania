@@ -1,3 +1,3 @@
 export default {
-  message: "Prüfung"
+  question: "Frage"
 };
