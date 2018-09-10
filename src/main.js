@@ -2,10 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import App from './App';
-import router from './router';
 import VueLodash from 'vue-lodash';
 import VueLogger from 'vuejs-logger';
-import store from '@store/index.js'
+import VueI18n from 'vue-i18n';
+import router from './router';
+import store from '@store/index';
+import messages from "@/translation/index";
 const isProduction = process.env.NODE_ENV === 'production';
 
 const options = {
@@ -19,8 +21,13 @@ const options = {
 };
 
 Vue.use(VueLogger, options);
-
+Vue.use(VueI18n);
 Vue.use(VueLodash);
+
+const i18n = new VueI18n({
+  locale: 'en',
+  messages
+});
 
 Vue.config.productionTip = false
 
@@ -30,5 +37,6 @@ new Vue({
   router,
   components: { App },
   store,
+  i18n,
   template: '<App/>'
 })

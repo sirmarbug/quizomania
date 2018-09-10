@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4>Pytanie {{ id }}/{{ questionCount }}</h4>
+    <h6>{{ $t("message") }}</h6>
     <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
     <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
     <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
@@ -48,6 +49,9 @@
         }
       },
       submitAnswer(ans) {
+        this.$log.debug("Język: ", this.$i18n.locale);
+        this.$i18n.locale = "de";
+        this.$log.debug("Język: ", this.$i18n.locale);
         this.allAns++;
         if (ans) this.goodAns++;
         else this.badAns++;
