@@ -8,8 +8,12 @@ import VueI18n from 'vue-i18n';
 import router from './router';
 import store from '@store/index';
 import messages from "@/translation/index";
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 const isProduction = process.env.NODE_ENV === 'production';
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
 
 const options = {
     isEnabled: true,
@@ -24,6 +28,7 @@ const options = {
 Vue.use(VueLogger, options);
 Vue.use(VueI18n);
 Vue.use(VueLodash);
+Vue.use(BootstrapVue);
 
 const i18n = new VueI18n({
   locale: 'en',
