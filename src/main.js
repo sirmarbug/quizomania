@@ -9,8 +9,12 @@ import router from './router';
 import store from '@store/index';
 import messages from "@/translation/index";
 import BootstrapVue from 'bootstrap-vue';
+
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
+import './style.css';
+
 const isProduction = process.env.NODE_ENV === 'production';
 Vue.config.productionTip = false;
 
