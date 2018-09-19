@@ -17,29 +17,21 @@
       <b-button type="submit" variant="outline-secondary" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</b-button>
     </form>
   </div>
+
   <!-- MULTI ANSWER -->
   <div v-else>
     <form action="#" @submit.prevent="submit">
       <h5>{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
         <!-- <label> -->
-        <b-form-checkbox :value="ans" :disabled="sub" v-model="odp2"><span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{
-            ans }}</span></b-form-checkbox>
-        <!-- <input type="checkbox" class="filled-in" :value="ans" :disabled="sub" v-model="odp2" />
-          <span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span>
-        </label> -->
+          <b-form-group>
+            <b-form-checkbox-group v-model="odp2">
+              <b-form-checkbox :value="ans" :disabled="sub">
+                <span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span>
+              </b-form-checkbox>
+            </b-form-checkbox-group>
+          </b-form-group>
       </p>
-      <!-- <div class="result">
-        <div v-if="ok && sub">
-          <h5 class="center-align good">Poprawna odpowiedź</h5>
-        </div>
-        <div v-if="!ok && sub">
-          <h5 class="center-align bad">Błędna odpowiedź! Poprawna to:
-            <span v-for="ans in question.goodAnswers" :key="ans">{{ ans }} </span>
-          </h5>
-        </div>
-      </div> -->
-      <!-- <button type="submit" class="waves-effect waves-light btn" :disabled="odp2.length === 0 || sub">Sprawdź</button> -->
       <b-button type="submit" variant="outline-secondary" :disabled="odp2.length === 0 || sub">Sprawdź</b-button>
     </form>
   </div>
