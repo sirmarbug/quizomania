@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <h4>{{ $t("question") }} {{ id }}/{{ questionCount }}</h4>
-    <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
-    <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
-    <b-button variant="outline-secondary" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</b-button>
-    <!-- <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button> -->
-    <!-- <button class="waves-effect waves-light btn" :disabled="id >= questions.length" @click="nextQuestion">Następne</button> -->
-    <b-button variant="outline-secondary" :disabled="id >= questions.length" @click="nextQuestion">Następne</b-button>
+  <div class="row row-first align-items-center">
+    <div class="col-sm">
+      <h4>{{ $t("question") }} {{ id }}/{{ questionCount }}</h4>
+      <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
+      <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
+      <b-button variant="outline-secondary" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</b-button>
+      <b-button variant="outline-secondary" :disabled="id >= questions.length" @click="nextQuestion">Następne</b-button>
+    </div>
   </div>
 </template>
 
@@ -73,8 +73,4 @@
 </script>
 
 <style scoped>
-  div {
-    margin-bottom: 20px;
-  }
-
 </style>
