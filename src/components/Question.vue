@@ -2,9 +2,7 @@
   <!-- ONE ANSWER -->
   <div v-if="question.goodAnswers.length <= 1">
     <form action="#" @submit.prevent="submit">
-      <b-alert variant="danger" show v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie
-        nie posiada odpowiedzi!!!</b-alert>
-      <h5>{{ question.question }}</h5>
+      <title-question :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
       <p v-for="answer in ans" :key="answer">
         <b-form-group>
           <b-form-radio-group v-model="odp">
@@ -38,6 +36,7 @@
 </template>
 
 <script>
+import TitleQuestion from "@components/Question/TitleQuestion";
   export default {
     props: {
       question: {
@@ -132,6 +131,9 @@
         }
         return false;
       }
+    },
+    components: {
+      TitleQuestion
     },
     mounted() {
       this.$log.debug(this.exam);
