@@ -15,15 +15,9 @@
 
       </b-collapse>
     </b-navbar>
-    <router-view />
-    <!-- <footer class="page-footer">
-      <div class="footer-copyright">
-        <div class="container">
-          Aplikacja powstała dla mojego cudownego Kotusia ;*
-          <span class="grey-text text-lighten-4 right">Autor: Mariusz Bugajski</span>
-        </div>
-      </div>
-    </footer> -->
+    <div class="container">
+      <router-view />
+    </div>
   </div>
 </template>
 

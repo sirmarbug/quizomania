@@ -5,21 +5,21 @@
 </template>
 
 <script>
-
-export default {
-  data () {
-    return {
+  export default {
+    data() {
+      return {
+      }
+    },
+    watch: {},
+    methods: {
     }
-  },
-  watch: {
-  },
-  methods: {
   }
-}
+
 </script>
 
 <style scoped>
-div {
-  margin-top: 30vh;
-}
+  div {
+    margin-top: 30vh;
+  }
+
 </style>
