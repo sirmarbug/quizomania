@@ -1,3 +1,8 @@
 .row-first {
   padding-top: 56px;
 }
+
+.question {
+  border: solid 1px #333;
+  border-radius: 15px;
+}

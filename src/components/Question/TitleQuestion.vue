@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-alert variant="danger" show v-if="alert">Pytanie nie posiada odpowiedzi!!!</b-alert>
     <h5>{{ title }}</h5>
+    <b-alert variant="danger" show v-if="alert">Pytanie nie posiada odpowiedzi!!!</b-alert>
   </div>
 </template>
 

@@ -12,7 +12,7 @@
           </b-form-radio-group>
         </b-form-group>
       </p>
-      <b-button type="submit" variant="outline-secondary" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</b-button>
+      <footer-question :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
   </div>
 
@@ -21,7 +21,6 @@
     <form action="#" @submit.prevent="submit">
       <h5>{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
-        <!-- <label> -->
           <b-form-group>
             <b-form-checkbox-group v-model="odp2">
               <b-form-checkbox :value="ans" :disabled="sub">
@@ -37,6 +36,7 @@
 
 <script>
 import TitleQuestion from "@components/Question/TitleQuestion";
+import FooterQuestion from "@components/Question/FooterQuestion";
   export default {
     props: {
       question: {
@@ -133,7 +133,8 @@ import TitleQuestion from "@components/Question/TitleQuestion";
       }
     },
     components: {
-      TitleQuestion
+      TitleQuestion,
+      FooterQuestion
     },
     mounted() {
       this.$log.debug(this.exam);
