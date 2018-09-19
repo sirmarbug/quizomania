@@ -1,29 +1,23 @@
 <template>
-  <div>
-    <h1>Test</h1>
-    <!-- COUNT QUESTIONS -->
-    <div v-if="!isCount">
-      <b-form-input v-model="text1" type="text" placeholder="Ilość pytań na egzaminie" v-model.number="count"></b-form-input>
-      <!-- <div class="input-field">
-          <input placeholder="Count" id="first_name" type="text" class="validate" v-model.number="count">
-        </div> -->
-      <!-- <button class="waves-effect waves-light btn" @click="start">Start</button> -->
-      <b-button variant="outline-secondary" @click="start">Start</b-button>
-    </div>
-    <!-- EXAM -->
-    <div v-if="isCount && !end">
-      <question :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
-      <!-- <button class="waves-effect waves-light btn" v-if="nr < count" @click="next">Następny</button> -->
-      <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
-      <!-- <button class="waves-effect waves-light btn" v-if="nr === count" @click="stop">Zakończ</button> -->
-      <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
-    </div>
-    <!-- RESULT -->
-    <div v-if="count === nr && end">
-      <exam-result :goodAns="goodAns" :badAns="badAns" :allAns="count"></exam-result>
-      <!-- <button class="waves-effect waves-light btn" @click="newExam">Nowy egzamin</button> -->
-      <b-button variant="outline-secondary" @click="newExam">Nowy egzamin</b-button>
-      <!-- <question-result-exam v-for="que in q" :key="que.question" :question="que"></question-result-exam> -->
+  <div class="row row-first align-items-center">
+    <div class="col-sm">
+      <h1>Test</h1>
+      <!-- COUNT QUESTIONS -->
+      <div v-if="!isCount">
+        <b-form-input v-model="text1" type="text" placeholder="Ilość pytań na egzaminie" v-model.number="count"></b-form-input>
+        <b-button variant="outline-secondary" @click="start">Start</b-button>
+      </div>
+      <!-- EXAM -->
+      <div v-if="isCount && !end">
+        <question :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
+        <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
+        <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
+      </div>
+      <!-- RESULT -->
+      <div v-if="count === nr && end">
+        <exam-result :goodAns="goodAns" :badAns="badAns" :allAns="count"></exam-result>
+        <b-button variant="outline-secondary" @click="newExam">Nowy egzamin</b-button>
+      </div>
     </div>
   </div>
 </template>
