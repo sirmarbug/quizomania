@@ -1,25 +1,33 @@
 <template>
+  <!-- ONE ANSWER -->
   <div v-if="question.goodAnswers.length <= 1">
     <form action="#" @submit.prevent="submit">
-      <h5 class="alert" v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</h5>
+      <b-alert variant="danger" show v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</b-alert>
+      <!-- <h5 class="alert" v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</h5> -->
       <h5>{{ question.question }}</h5>
       <p v-for="answer in ans" :key="answer">
-        <label>
+        <b-form-radio-group v-model="odp">
+        <b-form-radio :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"><span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span></b-form-radio>
+      </b-form-radio-group>
+        <!-- <label>
           <input name="group1" type="radio" :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0" v-model="odp" />
           <span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span>
-        </label>
+        </label> -->
       </p>
-      <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</button>
+      <!-- <button type="submit" class="waves-effect waves-light btn" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</button> -->
+      <b-button type="submit" variant="outline-secondary" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</b-button>
     </form>
   </div>
+  <!-- MULTI ANSWER -->
   <div v-else>
     <form action="#" @submit.prevent="submit">
       <h5>{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
-        <label>
-          <input type="checkbox" class="filled-in" :value="ans" :disabled="sub" v-model="odp2" />
+        <!-- <label> -->
+          <b-form-checkbox :value="ans" :disabled="sub" v-model="odp2"><span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span></b-form-checkbox>
+          <!-- <input type="checkbox" class="filled-in" :value="ans" :disabled="sub" v-model="odp2" />
           <span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span>
-        </label>
+        </label> -->
       </p>
       <!-- <div class="result">
         <div v-if="ok && sub">
@@ -31,7 +39,8 @@
           </h5>
         </div>
       </div> -->
-      <button type="submit" class="waves-effect waves-light btn" :disabled="odp2.length === 0 || sub">Sprawdź</button>
+      <!-- <button type="submit" class="waves-effect waves-light btn" :disabled="odp2.length === 0 || sub">Sprawdź</button> -->
+      <b-button type="submit" variant="outline-secondary" :disabled="odp2.length === 0 || sub">Sprawdź</b-button>
     </form>
   </div>
 </template>
@@ -157,8 +166,8 @@
     color: #2c3e50;
   }
 
-  .alert {
+  /* .alert {
     color: #b71c1c
-  }
+  } */
 
 </style>

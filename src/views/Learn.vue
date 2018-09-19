@@ -3,8 +3,10 @@
     <h4>{{ $t("question") }} {{ id }}/{{ questionCount }}</h4>
     <question :question="questions[id - 1]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
     <statistics :goodAns="goodAns" :badAns="badAns" :allAns="allAns"></statistics>
-    <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button>
-    <button class="waves-effect waves-light btn" :disabled="id >= questions.length" @click="nextQuestion">Następne</button>
+    <b-button variant="outline-secondary" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</b-button>
+    <!-- <button class="waves-effect waves-light btn" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</button> -->
+    <!-- <button class="waves-effect waves-light btn" :disabled="id >= questions.length" @click="nextQuestion">Następne</button> -->
+    <b-button variant="outline-secondary" :disabled="id >= questions.length" @click="nextQuestion">Następne</b-button>
   </div>
 </template>
 
@@ -24,7 +26,7 @@
       }
     },
     watch: {
-      "$route" () {
+      "$route"() {
         if (Number(this.$route.params.id) < 1) {
           this.$router.push(`/learn/1`);
         }

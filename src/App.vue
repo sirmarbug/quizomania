@@ -1,19 +1,21 @@
 <template>
   <div id="app">
-    <nav>
-      <div class="nav-wrapper">
-        <a href="#/" class="brand-logo center">Quizomania</a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li>
-            <a href="#/learn/1">Nauka</a>
-          </li>
-          <li>
-            <a href="#/exam">Test</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-    <router-view/>
+    <b-navbar toggleable="md" type="dark" variant="dark">
+
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+      <b-navbar-brand href="#/">QUIZOMANIA</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <b-navbar-nav>
+          <b-nav-item href="#/learn/1">Nauka</b-nav-item>
+          <b-nav-item href="#/exam">Test</b-nav-item>
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
+    <router-view />
     <!-- <footer class="page-footer">
       <div class="footer-copyright">
         <div class="container">
