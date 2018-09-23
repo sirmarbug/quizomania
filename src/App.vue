@@ -40,17 +40,4 @@
     color: #2c3e50;
   }
 
-  .page-footer {
-    padding: 0;
-  }
-
-  @media only screen and (min-width: 480px) {
-    .page-footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-    }
-  }
-
 </style>
