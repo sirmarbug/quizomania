@@ -1,8 +1,14 @@
 <template>
-  <!-- ONE ANSWER -->
+  <!-- SINGLE ANSWER -->
   <div v-if="question.goodAnswers.length <= 1">
     <form action="#" @submit.prevent="submit">
-      <title-question :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
+      <b-alert variant="danger" show v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</b-alert>
+      <h5 class="title-question">{{ question.question }}</h5>
+
+      <!-- TITLE -->
+      <!-- <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question> -->
+      <!-- BODY -->
+      <!-- <body-question :answers="question.answers" :goodAnswers="question.goodAnswers" :submitClick="sub"></body-question> -->
       <p v-for="answer in ans" :key="answer">
         <b-form-group>
           <b-form-radio-group v-model="odp">
@@ -12,7 +18,11 @@
           </b-form-radio-group>
         </b-form-group>
       </p>
-      <footer-question :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
+      <div class="footer-question">
+        <b-button type="submit" variant="outline-secondary" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</b-button>
+      </div>
+      <!-- FOOTER -->
+      <!-- <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question> -->
     </form>
   </div>
 
@@ -36,6 +46,7 @@
 
 <script>
 import TitleQuestion from "@components/Question/TitleQuestion";
+import BodyQuestion from "@components/Question/BodyQuestion";
 import FooterQuestion from "@components/Question/FooterQuestion";
   export default {
     props: {
@@ -59,13 +70,6 @@ import FooterQuestion from "@components/Question/FooterQuestion";
       }
     },
     watch: {
-      // "$route" () {
-      //   this.odp = "";
-      //   this.odp2 = [];
-      //   this.ok = false;
-      //   this.sub = false;
-      //   this.ans = this._.shuffle(this.question.answers);
-      // },
       "question"() {
         this.odp = "";
         this.odp2 = [];
@@ -134,6 +138,7 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     },
     components: {
       TitleQuestion,
+      BodyQuestion,
       FooterQuestion
     },
     mounted() {

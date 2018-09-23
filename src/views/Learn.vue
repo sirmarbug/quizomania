@@ -51,7 +51,7 @@
       },
       submitAnswer(ans) {
         this.$log.debug("Język: ", this.$i18n.locale);
-        this.$i18n.locale = "de";
+        // this.$i18n.locale = "de";
         this.$log.debug("Język: ", this.$i18n.locale);
         this.allAns++;
         if (ans) this.goodAns++;

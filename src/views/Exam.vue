@@ -23,10 +23,9 @@
 </template>
 
 <script>
-  import questions from "@/utils/questions.js";
+  import questions from "@/utils/question.js";
   import Question from "@components/Question";
   import ExamResult from "@components/ExamResult";
-  import QuestionResultExam from '@components/QuestionResultExam';
 
   export default {
     data() {
@@ -92,7 +91,6 @@
     components: {
       Question,
       ExamResult,
-      QuestionResultExam
     },
     mounted() {
       for (let i = 0; i < questions.length - 1; i++) {
