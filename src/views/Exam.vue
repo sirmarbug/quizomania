@@ -4,12 +4,12 @@
       <h1>Test</h1>
       <!-- COUNT QUESTIONS -->
       <div v-if="!isCount">
-        <b-form-input v-model="text1" type="text" placeholder="Ilość pytań na egzaminie" v-model.number="count"></b-form-input>
+        <b-form-input type="text" placeholder="Ilość pytań na egzaminie" v-model.number="count"></b-form-input>
         <b-button variant="outline-secondary" @click="start">Start</b-button>
       </div>
       <!-- EXAM -->
       <div v-if="isCount && !end">
-        <question :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
+        <question class="question" :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
         <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
         <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
       </div>

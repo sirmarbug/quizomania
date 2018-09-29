@@ -29,7 +29,7 @@
   <!-- MULTI ANSWER -->
   <div v-else>
     <form action="#" @submit.prevent="submit">
-      <h5>{{ question.question }}</h5>
+      <h5 class="title-question">{{ question.question }}</h5>
       <p v-for="ans in question.answers" :key="ans">
           <b-form-group>
             <b-form-checkbox-group v-model="odp2">
@@ -39,7 +39,9 @@
             </b-form-checkbox-group>
           </b-form-group>
       </p>
-      <b-button type="submit" variant="outline-secondary" :disabled="odp2.length === 0 || sub">Sprawdź</b-button>
+      <div class="footer-question">
+        <b-button type="submit" variant="outline-secondary" :disabled="odp2.length === 0 || sub">Sprawdź</b-button>
+      </div>
     </form>
   </div>
 </template>
