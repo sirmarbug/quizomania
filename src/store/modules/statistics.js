@@ -6,6 +6,14 @@ export default {
     badAnswers: 0
   },
   mutations: {
-
+    incrementAllAnswers(state) {
+      state.allAnswers++;
+    },
+    incrementGoodAnswers(state) {
+      state.goodAnswers++;
+    },
+    incrementBadAnswers(state) {
+      state.badAnswers++;
+    },
   }
 }
