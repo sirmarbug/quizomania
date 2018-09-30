@@ -1,25 +1,24 @@
 <template>
   <div>
     <h5>Statystyki</h5>
-    <p>Poprawne: {{ goodAns }}</p>
-    <p>Błędne: {{ badAns }}</p>
-    <p>Łącznie: {{ allAns }}</p>
+    <p>Poprawne: {{ goodAnswers }}</p>
+    <p>Błędne: {{ badAnswers }}</p>
+    <p>Łącznie: {{ allAnswers }}</p>
   </div>
 </template>
 
 <script>
-export default {
-  props: ["goodAns", "badAns", "allAns"],
-  data () {
-    return {
+  import {mapState} from 'vuex';
 
+  export default {
+    computed: {
+      ...mapState('statistics', {
+        allAnswers: state => state.allAnswers,
+        goodAnswers: state => state.goodAnswers,
+        badAnswers: state => state.badAnswers,
+      })
     }
-  },
-  watch: {
-  },
-  methods: {
   }
-}
 </script>
 
 <style scoped>
