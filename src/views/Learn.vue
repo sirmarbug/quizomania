@@ -69,6 +69,8 @@
       this.id = Number(this.$route.params.id);
       // QUESTION MODE
       this.$store.commit('question/setMode', this.$route.name);
+      // RESET STATISTICS
+      this.$store.dispatch('statistics/reset');
     }
   }
 

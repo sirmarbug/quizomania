@@ -44,7 +44,14 @@
         this.$store.commit('question/selected');
       },
       'submitClick'() {
-
+        if (this.submitClick) {
+          this.$store.commit('statistics/incrementAllAnswers');
+          if (this.selectedSingleAnswer === this.goodAnswer) {
+            this.$store.commit('statistics/incrementGoodAnswers');
+          } else {
+            this.$store.commit('statistics/incrementBadAnswers');
+          }
+        }
       }
     },
     methods: {
