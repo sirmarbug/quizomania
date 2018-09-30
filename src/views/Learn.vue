@@ -50,9 +50,9 @@
         }
       },
       submitAnswer(ans) {
-        this.$log.debug("Język: ", this.$i18n.locale);
+        // this.$log.debug("Język: ", this.$i18n.locale);
         // this.$i18n.locale = "de";
-        this.$log.debug("Język: ", this.$i18n.locale);
+        // this.$log.debug("Język: ", this.$i18n.locale);
         this.allAns++;
         if (ans) this.goodAns++;
         else this.badAns++;
@@ -66,7 +66,9 @@
       if (Number(this.$route.params.id) < 1) {
         this.$router.push(`/learn/1`);
       }
-      this.id = Number(this.$route.params.id)
+      this.id = Number(this.$route.params.id);
+      // QUESTION MODE
+      this.$store.commit('question/setMode', this.$route.name);
     }
   }
 

@@ -2,27 +2,22 @@
   <!-- SINGLE ANSWER -->
   <div v-if="question.goodAnswers.length <= 1">
     <form action="#" @submit.prevent="submit">
-      <b-alert variant="danger" show v-if="question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Pytanie nie posiada odpowiedzi!!!</b-alert>
-      <h5 class="title-question">{{ question.question }}</h5>
 
       <!-- TITLE -->
-      <!-- <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question> -->
+       <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
       <!-- BODY -->
-      <!-- <body-question :answers="question.answers" :goodAnswers="question.goodAnswers" :submitClick="sub"></body-question> -->
-      <p v-for="answer in ans" :key="answer">
-        <b-form-group>
-          <b-form-radio-group v-model="odp">
-            <b-form-radio :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">
-              <span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span>
-              </b-form-radio>
-          </b-form-radio-group>
-        </b-form-group>
-      </p>
-      <div class="footer-question">
-        <b-button type="submit" variant="outline-secondary" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">Sprawdź</b-button>
-      </div>
+       <single-answer :answers="ans" :goodAnswers="question.goodAnswers" :exam="exam"></single-answer>
+      <!--<p v-for="answer in ans" :key="answer">-->
+        <!--<b-form-group>-->
+          <!--<b-form-radio-group v-model="odp">-->
+            <!--<b-form-radio :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">-->
+              <!--<span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span>-->
+              <!--</b-form-radio>-->
+          <!--</b-form-radio-group>-->
+        <!--</b-form-group>-->
+      <!--</p>-->
       <!-- FOOTER -->
-      <!-- <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question> -->
+       <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
   </div>
 
@@ -48,7 +43,7 @@
 
 <script>
 import TitleQuestion from "@components/Question/TitleQuestion";
-import BodyQuestion from "@components/Question/BodyQuestion";
+import SingleAnswer from "@components/Question/Answer/SingleAnswer";
 import FooterQuestion from "@components/Question/FooterQuestion";
   export default {
     props: {
@@ -64,28 +59,38 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     },
     data() {
       return {
-        odp: "",
+        // odp: "",
         odp2: [],
         ok: false,
-        sub: false,
+        // sub: false,
         ans: []
+      }
+    },
+    computed: {
+      odp() {
+        return this.$store.state.question.selectedAnswer;
+      },
+      sub() {
+        return this.$store.state.question.submitClick;
       }
     },
     watch: {
       "question"() {
-        this.odp = "";
         this.odp2 = [];
         this.ok = false;
-        this.sub = false;
+        // this.sub = false;
+        this.$store.commit('question/unsubmitClicked');
         this.ans = this._.shuffle(this.question.answers);
       }
     },
     methods: {
+      //submitClicked
       submit() {
-        this.$log.debug("Count = ", this.$store.state.count);
-        this.$store.commit("increment");
-        this.$log.debug("Count = ", this.$store.state.count);
-        this.sub = true;
+        // this.$log.debug("Count = ", this.$store.state.count);
+        // this.$store.commit("increment");
+        // this.$log.debug("Count = ", this.$store.state.count);
+        this.$store.commit('question/selected');
+        this.$store.commit('question/submitClicked');
         if (this.question.goodAnswers.length === 1) {
           if (this.odp === this.question.goodAnswers[0]) {
             this.ok = true;
@@ -109,6 +114,7 @@ import FooterQuestion from "@components/Question/FooterQuestion";
         }
         this.$emit("submitAnswer", this.ok);
       },
+      //Checked good answer
       checkedGood(val) {
         if (this.sub && !this.exam) {
           for (let j = 0; j < this.question.goodAnswers.length; j++) {
@@ -119,6 +125,7 @@ import FooterQuestion from "@components/Question/FooterQuestion";
         }
         return false;
       },
+      //Checked bad answer
       checkedBad(val) {
         let odp = false;
         if (this.sub && !this.exam) {
@@ -140,11 +147,11 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     },
     components: {
       TitleQuestion,
-      BodyQuestion,
+      SingleAnswer,
       FooterQuestion
     },
     mounted() {
-      this.$log.debug(this.exam);
+      // this.$log.debug(this.exam);
       this.ans = this._.shuffle(this.question.answers);
     }
   }

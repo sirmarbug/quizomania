@@ -65,7 +65,7 @@
         for (let i = 0; i < this.ques.length; i++) {
           this.q.push(this.db[this.ques[i]]);
         }
-        this.$log.debug(this.q);
+        // this.$log.debug(this.q);
         this.isCount = true;
       },
       next() {
@@ -93,12 +93,14 @@
       ExamResult,
     },
     mounted() {
+      // QUESTION MODE
+      this.$store.commit('question/setMode', this.$route.name);
       for (let i = 0; i < questions.length - 1; i++) {
         if (questions[i].goodAnswers.length > 0 && questions[i].goodAnswers[0] !== "") {
           this.db.push(questions[i]);
         }
       }
-      this.$log.debug("Wartość route: ", this.$route);
+      // this.$log.debug("Wartość route: ", this.$route);
     }
   }
 
