@@ -3,9 +3,9 @@
     <b-form-radio-group v-model="selectedSingleAnswer">
       <p v-for="answer in answers" :key="answer">
         <b-form-radio :value="answer"
-                      :disabled="submitClick || goodAnswers === ''">
+                      :disabled="submitClick || goodAnswer === ''">
           <span
-            :class="{'good': submitClick && answer === goodAnswers && !exam, 'bad': submitClick && answer !== goodAnswers && selectedSingleAnswer === answer  && !exam}">{{ answer }}</span>
+            :class="{'good': submitClick && answer === goodAnswer && !exam, 'bad': submitClick && answer !== goodAnswer && selectedSingleAnswer === answer  && !exam}">{{ answer }}</span>
         </b-form-radio>
       </p>
     </b-form-radio-group>
