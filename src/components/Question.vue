@@ -92,11 +92,11 @@ import FooterQuestion from "@components/Question/FooterQuestion";
         this.$store.commit('question/selected');
         this.$store.commit('question/submitClicked');
         if (this.question.goodAnswers.length === 1) {
-          if (this.odp === this.question.goodAnswers[0]) {
-            this.ok = true;
-          } else {
-            this.ok = false;
-          }
+          // if (this.odp === this.question.goodAnswers[0]) {
+          //   this.ok = true;
+          // } else {
+          //   this.ok = false;
+          // }
         } else {
           let good = 0;
           for (let i = 0; i < this.odp2.length; i++) {
