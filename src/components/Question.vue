@@ -3,27 +3,35 @@
     <form action="#" @submit.prevent="submit">
 
       <!-- TITLE -->
-       <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
+      <title-question class="title-question" :title="question.question"
+                      :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
 
       <!-- BODY -->
-       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1" v-show="!sub"></single-answer>
-      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1" v-show="sub"></result-single-answer>
-      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers" v-if="question.goodAnswers.length > 1" v-show="!sub"></multi-answer>
-      <result-multi-answer :answers="ans" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer" v-if="question.goodAnswers.length > 1" v-show="sub"></result-multi-answer>
+      <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer"
+                     v-if="question.goodAnswers.length === 1" v-show="!sub"></single-answer>
+      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer"
+                            v-if="question.goodAnswers.length === 1" v-show="sub"></result-single-answer>
+      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
+                    v-if="question.goodAnswers.length > 1" v-show="!sub"></multi-answer>
+      <result-multi-answer :answers="ans" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
+                           v-if="question.goodAnswers.length > 1" v-show="sub"></result-multi-answer>
 
       <!-- FOOTER -->
-       <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
+      <footer-question class="footer-question"
+                       :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
   </div>
 </template>
 
 <script>
-import TitleQuestion from "@components/Question/TitleQuestion";
-import SingleAnswer from "@components/Question/Answer/SingleAnswer";
-import MultiAnswer from "@components/Question/Answer/MultiAnswer";
-import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
-import ResultMultiAnswer from "@components/Question/Answer/ResultMultiAnswer";
-import FooterQuestion from "@components/Question/FooterQuestion";
+  import TitleQuestion from "@components/Question/TitleQuestion";
+  import SingleAnswer from "@components/Question/Answer/SingleAnswer";
+  import MultiAnswer from "@components/Question/Answer/MultiAnswer";
+  import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
+  import ResultMultiAnswer from "@components/Question/Answer/ResultMultiAnswer";
+  import FooterQuestion from "@components/Question/FooterQuestion";
+  import { mapGetters, mapState } from 'vuex';
+
   export default {
     props: {
       question: {
@@ -39,8 +47,8 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     data() {
       return {
         // odp: "",
-        odp2: [],
-        ok: false,
+        // odp2: [],
+        // ok: false,
         // sub: false,
         ans: [],
         userAnswer: '',
@@ -48,6 +56,10 @@ import FooterQuestion from "@components/Question/FooterQuestion";
       }
     },
     computed: {
+      ...mapState('question', {
+        submitClick: 'submitClick',
+        selectedAnswer: 'selectedAnswer'
+      }),
       odp() {
         return this.$store.state.question.selectedAnswer;
       },
@@ -57,8 +69,8 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     },
     watch: {
       "question"() {
-        this.odp2 = [];
-        this.ok = false;
+        // this.odp2 = [];
+        // this.ok = false;
         // this.sub = false;
         this.$store.commit('question/unsubmitClicked');
         this.ans = this._.shuffle(this.question.answers);
@@ -67,65 +79,9 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     methods: {
       //submitClicked
       submit() {
-        // this.$log.debug("Count = ", this.$store.state.count);
-        // this.$store.commit("increment");
-        // this.$log.debug("Count = ", this.$store.state.count);
-        this.$store.commit('question/selected');
         this.$store.commit('question/submitClicked');
-        if (this.question.goodAnswers.length === 1) {
-          // if (this.odp === this.question.goodAnswers[0]) {
-          //   this.ok = true;
-          // } else {
-          //   this.ok = false;
-          // }
-        } else {
-          // let good = 0;
-          // for (let i = 0; i < this.odp2.length; i++) {
-          //   for (let j = 0; j < this.question.goodAnswers.length; j++) {
-          //     if (this.odp2[i] === this.question.goodAnswers[j]) {
-          //       good++;
-          //     }
-          //   }
-          // }
-          // if (this.question.goodAnswers.length === good && this.odp2.length === good) {
-          //   this.ok = true;
-          // } else {
-          //   this.ok = false;
-          // }
-        }
-        this.$emit("submitAnswer", this.ok);
       },
-      //Checked good answer
-      checkedGood(val) {
-        if (this.sub && !this.exam) {
-          for (let j = 0; j < this.question.goodAnswers.length; j++) {
-            if (this.question.goodAnswers[j] === val) {
-              return true;
-            }
-          }
-        }
-        return false;
-      },
-      //Checked bad answer
-      checkedBad(val) {
-        let odp = false;
-        if (this.sub && !this.exam) {
-          for (let i = 0; i < this.odp2.length; i++) {
-            for (let j = 0; j < this.question.goodAnswers.length; j++) {
-              if (this.odp2[i] === val) {
-                if (this.odp2[i] === this.question.goodAnswers[j]) {
-                  odp = true;
-                }
-              }
-            }
-            if (this.odp2[i] === val && !odp) {
-              return true;
-            }
-          }
-        }
-        return false;
-      },
-    //  Get User Answer
+      //  Get User Answer
       getUserAnswer(answer) {
         this.userAnswer = answer;
       },
@@ -142,28 +98,12 @@ import FooterQuestion from "@components/Question/FooterQuestion";
       FooterQuestion
     },
     mounted() {
-      // this.$log.debug(this.exam);
       this.ans = this._.shuffle(this.question.answers);
     }
   }
 
 </script>
 
-<style>
-  .good,
-  .bad {
-    margin: 0;
-    padding: 0;
-  }
-
-  .good {
-    background: #77ddd4;
-    color: #2c3e50;
-  }
-
-  .bad {
-    background: #efb1b3;
-    color: #2c3e50;
-  }
+<style scoped>
 
 </style>
