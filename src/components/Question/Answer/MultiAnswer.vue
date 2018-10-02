@@ -44,6 +44,7 @@
         } else {
           this.$store.commit('question/unselected');
         }
+        this.$emit('getUserMultiAnswers', this.selectedMultiAnswers);
       },
       'submitClick'() {
         if (this.submitClick) {

@@ -8,7 +8,7 @@
       <!-- BODY -->
        <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1 && !sub"></single-answer>
       <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1 && sub"></result-single-answer>
-      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers"></multi-answer>
+      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"></multi-answer>
       <!-- FOOTER -->
        <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
@@ -59,7 +59,8 @@ import FooterQuestion from "@components/Question/FooterQuestion";
         ok: false,
         // sub: false,
         ans: [],
-        userAnswer: ''
+        userAnswer: '',
+        userMultiAnswer: []
       }
     },
     computed: {
@@ -143,6 +144,9 @@ import FooterQuestion from "@components/Question/FooterQuestion";
     //  Get User Answer
       getUserAnswer(answer) {
         this.userAnswer = answer;
+      },
+      getUserMultiAnswers(answers) {
+        this.userMultiAnswer = answers;
       }
     },
     components: {
