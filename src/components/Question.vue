@@ -1,38 +1,20 @@
 <template>
-  <!-- SINGLE ANSWER -->
   <div>
     <form action="#" @submit.prevent="submit">
 
       <!-- TITLE -->
        <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
+
       <!-- BODY -->
        <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1" v-show="!sub"></single-answer>
       <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1" v-show="sub"></result-single-answer>
       <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers" v-if="question.goodAnswers.length > 1" v-show="!sub"></multi-answer>
       <result-multi-answer :answers="ans" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer" v-if="question.goodAnswers.length > 1" v-show="sub"></result-multi-answer>
+
       <!-- FOOTER -->
        <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
   </div>
-
-  <!-- MULTI ANSWER -->
-  <!--<div v-else>-->
-    <!--<form action="#" @submit.prevent="submit">-->
-      <!--<h5 class="title-question">{{ question.question }}</h5>-->
-      <!--<p v-for="ans in question.answers" :key="ans">-->
-          <!--<b-form-group>-->
-            <!--<b-form-checkbox-group v-model="odp2">-->
-              <!--<b-form-checkbox :value="ans" :disabled="sub">-->
-                <!--<span :class="{'good': checkedGood(ans), 'bad': checkedBad(ans)}">{{ ans }}</span>-->
-              <!--</b-form-checkbox>-->
-            <!--</b-form-checkbox-group>-->
-          <!--</b-form-group>-->
-      <!--</p>-->
-      <!--<div class="footer-question">-->
-        <!--<b-button type="submit" variant="outline-secondary" :disabled="odp2.length === 0 || sub">Sprawdź</b-button>-->
-      <!--</div>-->
-    <!--</form>-->
-  <!--</div>-->
 </template>
 
 <script>
