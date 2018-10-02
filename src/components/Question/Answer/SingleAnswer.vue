@@ -59,19 +59,4 @@
 </script>
 
 <style scoped>
-  .good,
-  .bad {
-    margin: 0;
-    padding: 0;
-  }
-
-  .good {
-    background: #77ddd4;
-    color: #2c3e50;
-  }
-
-  .bad {
-    background: #efb1b3;
-    color: #2c3e50;
-  }
 </style>
