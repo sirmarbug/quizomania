@@ -45,6 +45,7 @@
       },
       'selectedSingleAnswer'() {
         this.$store.commit('question/selected');
+        this.$emit('getUserAnswer', this.selectedSingleAnswer);
       },
       'submitClick'() {
         if (this.submitClick) {

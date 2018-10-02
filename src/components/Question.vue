@@ -6,7 +6,8 @@
       <!-- TITLE -->
        <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
       <!-- BODY -->
-       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]"></single-answer>
+       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1 && !sub"></single-answer>
+      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1 && sub"></result-single-answer>
       <!--<p v-for="answer in ans" :key="answer">-->
         <!--<b-form-group>-->
           <!--<b-form-radio-group v-model="odp">-->
@@ -44,6 +45,7 @@
 <script>
 import TitleQuestion from "@components/Question/TitleQuestion";
 import SingleAnswer from "@components/Question/Answer/SingleAnswer";
+import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
 import FooterQuestion from "@components/Question/FooterQuestion";
   export default {
     props: {
@@ -63,7 +65,8 @@ import FooterQuestion from "@components/Question/FooterQuestion";
         odp2: [],
         ok: false,
         // sub: false,
-        ans: []
+        ans: [],
+        userAnswer: ''
       }
     },
     computed: {
@@ -143,11 +146,16 @@ import FooterQuestion from "@components/Question/FooterQuestion";
           }
         }
         return false;
+      },
+    //  Get User Answer
+      getUserAnswer(answer) {
+        this.userAnswer = answer;
       }
     },
     components: {
       TitleQuestion,
       SingleAnswer,
+      ResultSingleAnswer,
       FooterQuestion
     },
     mounted() {
