@@ -5,7 +5,7 @@
         <b-form-radio :value="answer"
                       :disabled="submitClick || goodAnswer === ''">
           <span
-            :class="{'good': submitClick && answer === goodAnswer && !exam, 'bad': submitClick && answer !== goodAnswer && selectedSingleAnswer === answer  && !exam}">{{ answer }}</span>
+            :class="{'good-answer': submitClick && answer === goodAnswer && !exam, 'bad-answer': submitClick && answer !== goodAnswer && selectedSingleAnswer === answer  && !exam}">{{ answer }}</span>
         </b-form-radio>
       </p>
     </b-form-radio-group>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import { mapGetters, mapState } from 'vuex';
 
   export default {
     props: {
@@ -32,9 +32,9 @@
       }
     },
     computed: {
-      submitClick() {
-        return this.$store.state.question.submitClick;
-      },
+      ...mapState('question', {
+        submitClick: 'submitClick'
+      }),
       ...mapGetters('question', {
         exam: 'examMode'
       })
@@ -53,12 +53,6 @@
           }
         }
       }
-    },
-    methods: {
-
-    },
-    mounted() {
-      this.$log.debug('Exam Mode: ', this.exam);
     }
   }
 

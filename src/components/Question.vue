@@ -6,7 +6,7 @@
       <!-- TITLE -->
        <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
       <!-- BODY -->
-       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :exam="exam"></single-answer>
+       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]"></single-answer>
       <!--<p v-for="answer in ans" :key="answer">-->
         <!--<b-form-group>-->
           <!--<b-form-radio-group v-model="odp">-->
