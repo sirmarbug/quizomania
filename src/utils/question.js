@@ -10,18 +10,13 @@ export default [
     goodAnswers: [""]
   },
   {
-    question: "W którym roku odbył się chrzest Polski?",
-    answers: ["966", "996", "699", "669"],
+    question: "Z jakich barw składa się falga Polski?",
+    answers: ["Czerwony", "Biały", "Zielony", "Czarny"],
+    goodAnswers: ["Biały", "Czerwony"]
+  },
+  {
+    question: "Z jakich barw składa się falga Polski?",
+    answers: ["Czerwony", "Biały", "Zielony", "Czarny"],
     goodAnswers: []
-  },
-  {
-    question: "W którym roku odbył się chrzest Polski?",
-    answers: ["966", "996", "699", "669"],
-    goodAnswers: ["966", "996"]
-  },
-  {
-    question: "W którym roku odbył się chrzest Polski?",
-    answers: ["966", "996", "699", "669"],
-    goodAnswers: ["699", "669"]
   }
 ];
