@@ -15,8 +15,13 @@ export default [
     goodAnswers: ["Biały", "Czerwony"]
   },
   {
+    question: "Z jakich barw składa się falga Niemiec?",
+    answers: ["Czerwony", "Żółty", "Zielony", "Czarny"],
+    goodAnswers: ["Czerwony", "Żółty", "Czarny"]
+  },
+  {
     question: "Z jakich barw składa się falga Polski?",
     answers: ["Czerwony", "Biały", "Zielony", "Czarny"],
     goodAnswers: []
-  }
+  },
 ];
