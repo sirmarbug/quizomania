@@ -6,9 +6,10 @@
       <!-- TITLE -->
        <title-question class="title-question" :title="question.question" :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
       <!-- BODY -->
-       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1 && !sub"></single-answer>
-      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1 && sub"></result-single-answer>
-      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers" v-if="question.goodAnswers.length > 1 && !sub"></multi-answer>
+       <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1" v-show="!sub"></single-answer>
+      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1" v-show="sub"></result-single-answer>
+      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers" v-if="question.goodAnswers.length > 1" v-show="!sub"></multi-answer>
+      <result-multi-answer :answers="ans" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer" v-if="question.goodAnswers.length > 1" v-show="sub"></result-multi-answer>
       <!-- FOOTER -->
        <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
@@ -39,6 +40,7 @@ import TitleQuestion from "@components/Question/TitleQuestion";
 import SingleAnswer from "@components/Question/Answer/SingleAnswer";
 import MultiAnswer from "@components/Question/Answer/MultiAnswer";
 import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
+import ResultMultiAnswer from "@components/Question/Answer/ResultMultiAnswer";
 import FooterQuestion from "@components/Question/FooterQuestion";
   export default {
     props: {
@@ -154,6 +156,7 @@ import FooterQuestion from "@components/Question/FooterQuestion";
       SingleAnswer,
       MultiAnswer,
       ResultSingleAnswer,
+      ResultMultiAnswer,
       FooterQuestion
     },
     mounted() {
