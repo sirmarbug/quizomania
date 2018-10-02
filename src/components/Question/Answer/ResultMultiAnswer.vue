@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p v-for="answer in answers" :key="answer">
-      <span :class="{'good': checkedGood(answer), 'bad': checkedBad(answer)}">{{ answer }}</span>
+    <p v-for="answer in answers" :key="answer" :class="{'good-answer': checkedGood(answer), 'bad-answer': checkedBad(answer)}">
+      {{ answer }}
     </p>
   </div>
 </template>
