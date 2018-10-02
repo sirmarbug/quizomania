@@ -38,6 +38,9 @@
       })
     },
     watch: {
+      'answers'() {
+        this.selectedMultiAnswers = [];
+      },
       'selectedMultiAnswers'() {
         if (this.selectedMultiAnswers.length > 0) {
           this.$store.commit('question/selected');
