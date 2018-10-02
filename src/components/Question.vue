@@ -8,15 +8,6 @@
       <!-- BODY -->
        <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1 && !sub"></single-answer>
       <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1 && sub"></result-single-answer>
-      <!--<p v-for="answer in ans" :key="answer">-->
-        <!--<b-form-group>-->
-          <!--<b-form-radio-group v-model="odp">-->
-            <!--<b-form-radio :value="answer" :disabled="sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0">-->
-              <!--<span :class="{'good': sub && answer === question.goodAnswers[0] && !exam, 'bad': sub && answer !== question.goodAnswers[0] && odp === answer  && !exam}">{{ answer }}</span>-->
-              <!--</b-form-radio>-->
-          <!--</b-form-radio-group>-->
-        <!--</b-form-group>-->
-      <!--</p>-->
       <!-- FOOTER -->
        <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
