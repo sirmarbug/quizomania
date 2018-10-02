@@ -42,11 +42,13 @@
       prevQuerstion() {
         if (this.id > 0) {
           this.$router.push(`/learn/${this.id - 1}`);
+          this.$store.dispatch('question/newQuestion');
         }
       },
       nextQuestion() {
         if (this.id < this.questions.length) {
           this.$router.push(`/learn/${this.id + 1}`);
+          this.$store.dispatch('question/newQuestion');
         }
       },
       submitAnswer(ans) {

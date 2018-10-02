@@ -40,6 +40,9 @@
       })
     },
     watch: {
+      'answers'() {
+        this.selectedSingleAnswer = '';
+      },
       'selectedSingleAnswer'() {
         this.$store.commit('question/selected');
       },

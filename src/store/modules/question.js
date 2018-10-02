@@ -39,5 +39,11 @@ export default {
     badAnswer(state) {
       state.isGoodAnswer = false;
     }
+  },
+  actions: {
+    newQuestion(context) {
+      context.commit('unselected');
+      context.commit('unsubmitClicked');
+    }
   }
 }
