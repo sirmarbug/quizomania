@@ -8,7 +8,7 @@
       <!-- BODY -->
        <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer" v-if="question.goodAnswers.length === 1 && !sub"></single-answer>
       <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer" v-if="question.goodAnswers.length === 1 && sub"></result-single-answer>
-      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"></multi-answer>
+      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers" v-if="question.goodAnswers.length > 1 && !sub"></multi-answer>
       <!-- FOOTER -->
        <footer-question class="footer-question" :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
