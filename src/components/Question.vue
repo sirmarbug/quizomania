@@ -58,7 +58,7 @@
     watch: {
       "question"() {
         this.$store.commit('question/unsubmitClicked');
-        this.ans = this._.shuffle(this.question.answers);
+        this.mixedAnswer = this._.shuffle(this.question.answers);
       }
     },
     methods: {
