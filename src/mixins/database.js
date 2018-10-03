@@ -30,3 +30,11 @@ export function drawQuestions(count, lengthQuestions) {
   }
   return numberQuestionsArray;
 }
+
+export function createExamQuestions(questionsArray, questionsNumberArray) {
+  let examQustions = [];
+  for (let i = 0; i < questionsNumberArray.length; i++) {
+    examQustions.push(questionsArray[questionsNumberArray[i]]);
+  }
+  return examQustions;
+}
