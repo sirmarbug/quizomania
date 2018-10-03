@@ -15,7 +15,7 @@
 
       <multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
                     v-if="question.goodAnswers.length > 1" v-show="!submitClick"></multi-answer>
-      
+
       <result-multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
                            v-if="question.goodAnswers.length > 1" v-show="submitClick"></result-multi-answer>
 
@@ -33,7 +33,7 @@
   import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
   import ResultMultiAnswer from "@components/Question/Answer/ResultMultiAnswer";
   import FooterQuestion from "@components/Question/FooterQuestion";
-  import { mapGetters, mapState } from 'vuex';
+  import { mapState } from 'vuex';
 
   export default {
     props: {
