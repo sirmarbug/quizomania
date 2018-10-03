@@ -7,18 +7,21 @@
                       :alert="question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></title-question>
 
       <!-- BODY -->
-      <single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer"
-                     v-if="question.goodAnswers.length === 1" v-show="!sub"></single-answer>
-      <result-single-answer :answers="ans" :goodAnswer="question.goodAnswers[0]" :userAnswer="userAnswer"
-                            v-if="question.goodAnswers.length === 1" v-show="sub"></result-single-answer>
-      <multi-answer :answers="ans" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
-                    v-if="question.goodAnswers.length > 1" v-show="!sub"></multi-answer>
-      <result-multi-answer :answers="ans" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
-                           v-if="question.goodAnswers.length > 1" v-show="sub"></result-multi-answer>
+      <single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer"
+                     v-if="question.goodAnswers.length === 1" v-show="!submitClick"></single-answer>
+
+      <result-single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" :userAnswer="userSingleAnswer"
+                            v-if="question.goodAnswers.length === 1" v-show="submitClick"></result-single-answer>
+
+      <multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
+                    v-if="question.goodAnswers.length > 1" v-show="!submitClick"></multi-answer>
+      
+      <result-multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
+                           v-if="question.goodAnswers.length > 1" v-show="submitClick"></result-multi-answer>
 
       <!-- FOOTER -->
       <footer-question class="footer-question"
-                       :disabled="!odp || sub || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
+                       :disabled="!selectedAnswer || submitClick || question.goodAnswers[0] === '' || question.goodAnswers.length === 0"></footer-question>
     </form>
   </div>
 </template>
@@ -37,21 +40,12 @@
       question: {
         type: Object,
         required: true
-      },
-      exam: {
-        type: Boolean,
-        default: false,
-        required: true
       }
     },
     data() {
       return {
-        // odp: "",
-        // odp2: [],
-        // ok: false,
-        // sub: false,
-        ans: [],
-        userAnswer: '',
+        mixedAnswer: [],
+        userSingleAnswer: '',
         userMultiAnswer: []
       }
     },
@@ -59,19 +53,10 @@
       ...mapState('question', {
         submitClick: 'submitClick',
         selectedAnswer: 'selectedAnswer'
-      }),
-      odp() {
-        return this.$store.state.question.selectedAnswer;
-      },
-      sub() {
-        return this.$store.state.question.submitClick;
-      }
+      })
     },
     watch: {
       "question"() {
-        // this.odp2 = [];
-        // this.ok = false;
-        // this.sub = false;
         this.$store.commit('question/unsubmitClicked');
         this.ans = this._.shuffle(this.question.answers);
       }
@@ -83,7 +68,7 @@
       },
       //  Get User Answer
       getUserAnswer(answer) {
-        this.userAnswer = answer;
+        this.userSingleAnswer = answer;
       },
       getUserMultiAnswers(answers) {
         this.userMultiAnswer = answers;
@@ -98,7 +83,7 @@
       FooterQuestion
     },
     mounted() {
-      this.ans = this._.shuffle(this.question.answers);
+      this.mixedAnswer = this._.shuffle(this.question.answers);
     }
   }
 
