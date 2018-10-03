@@ -8,16 +8,16 @@
 
       <!-- BODY -->
       <single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer"
-                     v-if="question.goodAnswers.length === 1" v-show="!submitClick"></single-answer>
+                     v-if="question.goodAnswers.length === 1" v-show="!submitClick || exam"></single-answer>
 
       <result-single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" :userAnswer="userSingleAnswer"
-                            v-if="question.goodAnswers.length === 1" v-show="submitClick"></result-single-answer>
+                            v-if="question.goodAnswers.length === 1" v-show="submitClick && !exam"></result-single-answer>
 
       <multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
-                    v-if="question.goodAnswers.length > 1" v-show="!submitClick"></multi-answer>
+                    v-if="question.goodAnswers.length > 1" v-show="!submitClick || exam"></multi-answer>
 
       <result-multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
-                           v-if="question.goodAnswers.length > 1" v-show="submitClick"></result-multi-answer>
+                           v-if="question.goodAnswers.length > 1" v-show="submitClick && !exam"></result-multi-answer>
 
       <!-- FOOTER -->
       <footer-question class="footer-question"
@@ -33,7 +33,7 @@
   import ResultSingleAnswer from "@components/Question/Answer/ResultSingleAnswer";
   import ResultMultiAnswer from "@components/Question/Answer/ResultMultiAnswer";
   import FooterQuestion from "@components/Question/FooterQuestion";
-  import { mapState } from 'vuex';
+  import { mapState, mapGetters } from 'vuex';
 
   export default {
     props: {
@@ -53,6 +53,9 @@
       ...mapState('question', {
         submitClick: 'submitClick',
         selectedAnswer: 'selectedAnswer'
+      }),
+      ...mapGetters('question', {
+        exam: 'examMode'
       })
     },
     watch: {
