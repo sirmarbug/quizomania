@@ -9,7 +9,7 @@
       </div>
       <!-- EXAM -->
       <div v-if="isCount && !end">
-        <question class="question" :question="db[ques[nr - 1]]" :exam="$route.name === 'exam'" @submitAnswer="submitAnswer"></question>
+        <question class="question" :question="db[ques[nr - 1]]"></question>
         <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
         <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
       </div>
@@ -26,6 +26,7 @@
   import questions from "@/utils/question.js";
   import Question from "@components/Question";
   import ExamResult from "@components/ExamResult";
+  import { removingEmptyQuestions } from "@mixins/database";
 
   export default {
     data() {
@@ -74,10 +75,6 @@
       stop() {
         this.end = true;
       },
-      submitAnswer(ans) {
-        if (ans) this.goodAns++;
-        else this.badAns++;
-      },
       newExam() {
         this.ques = [];
         this.count = null;
@@ -100,7 +97,8 @@
           this.db.push(questions[i]);
         }
       }
-      // this.$log.debug("Wartość route: ", this.$route);
+      this.$log.debug('Funkcja: ', this.db);
+      this.$log.debug('Funkcja importowana: ', removingEmptyQuestions(questions));
     }
   }
 
