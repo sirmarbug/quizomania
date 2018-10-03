@@ -15,7 +15,7 @@
       </div>
       <!-- RESULT -->
       <div v-if="count === nr && end">
-        <exam-result :goodAns="goodAns" :badAns="badAns" :allAns="count"></exam-result>
+        <exam-result :questionCount="count"></exam-result>
         <b-button variant="outline-secondary" @click="newExam">Nowy egzamin</b-button>
       </div>
     </div>
@@ -36,46 +36,23 @@
         count: null,
         isCount: false,
         nr: 1,
-        end: false,
-        goodAns: 0,
-        badAns: 0,
-        // q: []
+        end: false
       }
     },
     watch: {},
     methods: {
       start() {
-        // let rand = 0;
-        // let rep = false;
-        // while (this.ques.length < this.count) {
-        //   rep = false;
-        //   rand = Math.floor(Math.random() * this.db.length);
-        //   if (rand < this.db.length) {
-        //     for (let i = 0; i < this.ques.length; i++) {
-        //       if (this.ques[i] === rand) {
-        //         rep = true;
-        //         break;
-        //       }
-        //     }
-        //     if (!rep) {
-        //       this.ques.push(rand);
-        //     }
-        //   }
-        // }
-        //
-        // for (let i = 0; i < this.ques.length; i++) {
-        //   this.q.push(this.db[this.ques[i]]);
-        // }
         this.ques = drawQuestions(this.count, this.db.length);
         this.$log.debug('Lokalne losowanie: ', this.ques);
-        // this.$log.debug('Losowanie z importu: ', drawQuestions(this.count, this.db.length));
         this.isCount = true;
       },
       next() {
         this.nr++;
+        this.$store.dispatch('question/newQuestion');
       },
       stop() {
         this.end = true;
+        this.$store.dispatch('question/newQuestion');
       },
       newExam() {
         this.ques = [];
@@ -83,8 +60,8 @@
         this.isCount = false;
         this.nr = 1;
         this.end = false;
-        this.goodAns = 0;
-        this.badAns = 0;
+        this.$store.dispatch('question/newQuestion');
+        this.$store.dispatch('statistics/reset');
       }
     },
     components: {
@@ -94,14 +71,8 @@
     mounted() {
       // QUESTION MODE
       this.$store.commit('question/setMode', this.$route.name);
-      // for (let i = 0; i < questions.length - 1; i++) {
-      //   if (questions[i].goodAnswers.length > 0 && questions[i].goodAnswers[0] !== "") {
-      //     this.db.push(questions[i]);
-      //   }
-      // }
       this.db = removingEmptyQuestions(questions);
       this.$log.debug('Funkcja: ', this.db);
-      // this.$log.debug('Funkcja importowana: ', removingEmptyQuestions(questions));
     }
   }
 
