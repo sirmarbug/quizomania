@@ -26,7 +26,7 @@
   import questions from "@/utils/question.js";
   import Question from "@components/Question";
   import ExamResult from "@components/ExamResult";
-  import { removingEmptyQuestions } from "@mixins/database";
+  import { removingEmptyQuestions, drawQuestions } from "@mixins/database";
 
   export default {
     data() {
@@ -39,34 +39,36 @@
         end: false,
         goodAns: 0,
         badAns: 0,
-        q: []
+        // q: []
       }
     },
     watch: {},
     methods: {
       start() {
-        let rand = 0;
-        let rep = false;
-        while (this.ques.length < this.count) {
-          rep = false;
-          rand = Math.floor(Math.random() * this.db.length);
-          if (rand < this.db.length) {
-            for (let i = 0; i < this.ques.length; i++) {
-              if (this.ques[i] === rand) {
-                rep = true;
-                break;
-              }
-            }
-            if (!rep) {
-              this.ques.push(rand);
-            }
-          }
-        }
-
-        for (let i = 0; i < this.ques.length; i++) {
-          this.q.push(this.db[this.ques[i]]);
-        }
-        // this.$log.debug(this.q);
+        // let rand = 0;
+        // let rep = false;
+        // while (this.ques.length < this.count) {
+        //   rep = false;
+        //   rand = Math.floor(Math.random() * this.db.length);
+        //   if (rand < this.db.length) {
+        //     for (let i = 0; i < this.ques.length; i++) {
+        //       if (this.ques[i] === rand) {
+        //         rep = true;
+        //         break;
+        //       }
+        //     }
+        //     if (!rep) {
+        //       this.ques.push(rand);
+        //     }
+        //   }
+        // }
+        //
+        // for (let i = 0; i < this.ques.length; i++) {
+        //   this.q.push(this.db[this.ques[i]]);
+        // }
+        this.ques = drawQuestions(this.count, this.db.length);
+        this.$log.debug('Lokalne losowanie: ', this.ques);
+        // this.$log.debug('Losowanie z importu: ', drawQuestions(this.count, this.db.length));
         this.isCount = true;
       },
       next() {
@@ -92,13 +94,14 @@
     mounted() {
       // QUESTION MODE
       this.$store.commit('question/setMode', this.$route.name);
-      for (let i = 0; i < questions.length - 1; i++) {
-        if (questions[i].goodAnswers.length > 0 && questions[i].goodAnswers[0] !== "") {
-          this.db.push(questions[i]);
-        }
-      }
+      // for (let i = 0; i < questions.length - 1; i++) {
+      //   if (questions[i].goodAnswers.length > 0 && questions[i].goodAnswers[0] !== "") {
+      //     this.db.push(questions[i]);
+      //   }
+      // }
+      this.db = removingEmptyQuestions(questions);
       this.$log.debug('Funkcja: ', this.db);
-      this.$log.debug('Funkcja importowana: ', removingEmptyQuestions(questions));
+      // this.$log.debug('Funkcja importowana: ', removingEmptyQuestions(questions));
     }
   }
 
