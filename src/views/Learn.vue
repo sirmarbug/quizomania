@@ -2,7 +2,7 @@
   <div class="row row-first align-items-center">
     <div class="col-sm">
       <h4>{{ $t("question") }} {{ id }}/{{ questionCount }}</h4>
-      <question class="question" :question="questions[id - 1]" :exam="$route.name === 'exam'"></question>
+      <question class="question" :question="questions[id - 1]"></question>
       <b-button variant="outline-secondary" :disabled="id <= 1" @click="prevQuerstion">Poprzednie</b-button>
       <b-button variant="outline-secondary" :disabled="id >= questions.length" @click="nextQuestion">Następne</b-button>
       <statistics></statistics>
