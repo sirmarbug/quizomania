@@ -9,7 +9,7 @@
       </div>
       <!-- EXAM -->
       <div v-if="isCount && !end">
-        <question class="question" :question="db[ques[nr - 1]]"></question>
+        <question class="question" :question="examQuestions[nr - 1]"></question>
         <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
         <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
       </div>
@@ -26,13 +26,12 @@
   import questions from "@/utils/question.js";
   import Question from "@components/Question";
   import ExamResult from "@components/ExamResult";
-  import { removingEmptyQuestions, drawQuestions } from "@mixins/database";
+  import { removingEmptyQuestions, drawQuestions, createExamQuestions } from "@mixins/database";
 
   export default {
     data() {
       return {
-        db: [],
-        ques: [],
+        examQuestions: [],
         count: null,
         isCount: false,
         nr: 1,
@@ -42,8 +41,9 @@
     watch: {},
     methods: {
       start() {
-        this.ques = drawQuestions(this.count, this.db.length);
-        this.$log.debug('Lokalne losowanie: ', this.ques);
+        const questionsArrayWithAnswers = removingEmptyQuestions(questions);
+        const questionsNumberArray = drawQuestions(this.count, questionsArrayWithAnswers.length);
+        this.examQuestions = createExamQuestions(questionsArrayWithAnswers, questionsNumberArray)
         this.isCount = true;
       },
       next() {
@@ -55,7 +55,7 @@
         this.$store.dispatch('question/newQuestion');
       },
       newExam() {
-        this.ques = [];
+        this.examQuestions = [];
         this.count = null;
         this.isCount = false;
         this.nr = 1;
@@ -71,8 +71,6 @@
     mounted() {
       // QUESTION MODE
       this.$store.commit('question/setMode', this.$route.name);
-      this.db = removingEmptyQuestions(questions);
-      this.$log.debug('Funkcja: ', this.db);
     }
   }
 
