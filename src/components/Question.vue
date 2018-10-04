@@ -8,13 +8,13 @@
 
       <!-- BODY -->
       <single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" @getUserAnswer="getUserAnswer"
-                     v-if="question.goodAnswers.length === 1" v-show="!submitClick || exam"></single-answer>
+                     v-if="question.goodAnswers.length === 1" v-show="!submitClick || exam" @getAnswer="getAnswer"></single-answer>
 
       <result-single-answer :answers="mixedAnswer" :goodAnswer="question.goodAnswers[0]" :userAnswer="userSingleAnswer"
                             v-if="question.goodAnswers.length === 1" v-show="submitClick && !exam"></result-single-answer>
 
       <multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" @getUserMultiAnswers="getUserMultiAnswers"
-                    v-if="question.goodAnswers.length > 1" v-show="!submitClick || exam"></multi-answer>
+                    v-if="question.goodAnswers.length > 1" v-show="!submitClick || exam" @getAnswer="getAnswer"></multi-answer>
 
       <result-multi-answer :answers="mixedAnswer" :goodAnswers="question.goodAnswers" :userAnswers="userMultiAnswer"
                            v-if="question.goodAnswers.length > 1" v-show="submitClick && !exam"></result-multi-answer>
@@ -46,7 +46,8 @@
       return {
         mixedAnswer: [],
         userSingleAnswer: '',
-        userMultiAnswer: []
+        userMultiAnswer: [],
+        userExamAnswer: []
       }
     },
     computed: {
@@ -75,6 +76,10 @@
       },
       getUserMultiAnswers(answers) {
         this.userMultiAnswer = answers;
+      },
+      getAnswer(answer) {
+        this.userExamAnswer.push(answer);
+        this.$log.debug('userExamAnswer: ', this.userExamAnswer);
       }
     },
     components: {

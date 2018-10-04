@@ -65,6 +65,9 @@
           } else {
             this.$store.commit('statistics/incrementBadAnswers');
           }
+          if (this.exam) {
+            this.$emit('getAnswer', this.selectedSingleAnswer);
+          }
         }
       }
     }

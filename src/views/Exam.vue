@@ -8,13 +8,13 @@
         <b-button variant="outline-secondary" @click="start">Start</b-button>
       </div>
       <!-- EXAM -->
-      <div v-if="isCount && !end">
-        <question class="question" :question="examQuestions[nr - 1]"></question>
-        <b-button variant="outline-secondary" v-if="nr < count" @click="next">Następny</b-button>
-        <b-button variant="outline-secondary" v-if="nr === count" @click="stop">Zakończ</b-button>
+      <div v-if="isCount && !endExam">
+        <question class="question" :question="examQuestions[numberOfQuestions - 1]"></question>
+        <b-button variant="outline-secondary" v-if="numberOfQuestions < count" @click="next">Następny</b-button>
+        <b-button variant="outline-secondary" v-if="numberOfQuestions === count" @click="stop">Zakończ</b-button>
       </div>
       <!-- RESULT -->
-      <div v-if="count === nr && end">
+      <div v-if="count === numberOfQuestions && endExam">
         <exam-result :questionCount="count"></exam-result>
         <b-button variant="outline-secondary" @click="newExam">Nowy egzamin</b-button>
       </div>
@@ -34,8 +34,8 @@
         examQuestions: [],
         count: null,
         isCount: false,
-        nr: 1,
-        end: false
+        numberOfQuestions: 1,
+        endExam: false
       }
     },
     watch: {},
@@ -47,19 +47,19 @@
         this.isCount = true;
       },
       next() {
-        this.nr++;
+        this.numberOfQuestions++;
         this.$store.dispatch('question/newQuestion');
       },
       stop() {
-        this.end = true;
+        this.endExam = true;
         this.$store.dispatch('question/newQuestion');
       },
       newExam() {
         this.examQuestions = [];
         this.count = null;
         this.isCount = false;
-        this.nr = 1;
-        this.end = false;
+        this.numberOfQuestions = 1;
+        this.endExam = false;
         this.$store.dispatch('question/newQuestion');
         this.$store.dispatch('statistics/reset');
       }
