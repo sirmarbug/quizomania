@@ -4,13 +4,14 @@
     <h6 :class="{ 'good-mark': mark >= 50, 'bad-mark': mark < 50 }">Ocena: {{ mark }}</h6>
     <p>Poprawne: {{ goodAnswers }}</p>
     <p>Błędne: {{ badAnswers }}</p>
-    <div v-for="question in questions">
-      {{ question.question }}
+    <div v-for="(question, index) in questions">
+      <exam-result-question :question="question" :userAnswer="userAnswers[index]"></exam-result-question>
     </div>
   </div>
 </template>
 
 <script>
+  import ExamResultQuestion from '@components/ExamResultQuestion'
   import {mapState} from 'vuex';
 
   export default {
@@ -35,7 +36,7 @@
         badAnswers: state => state.badAnswers,
       }),
       ...mapState('exam', {
-        answers: state => state.answers
+        userAnswers: state => state.answers
       })
     },
     watch: {},
@@ -44,7 +45,7 @@
       this.mark = this.goodAnswers / this.questionCount * 100;
     },
     components: {
-
+      ExamResultQuestion
     }
   }
 </script>

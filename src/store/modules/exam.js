@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     answers: [],
+    result: false
   },
   mutations: {
     addAnswer(state, answer) {
@@ -9,6 +10,12 @@ export default {
     },
     resetAnswersArray(state) {
       state.answers = [];
+    },
+    enableResult(state) {
+      state.result = true;
+    },
+    disableResult(state) {
+      state.result = false;
     }
   }
 }

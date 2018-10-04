@@ -1,6 +1,6 @@
 <template>
     <div>
-      <p v-for="answer in answers" :key="answer" :class="{'good-answer': submitClick && answer === goodAnswer && !exam, 'bad-answer': submitClick && answer !== goodAnswer && userAnswer === answer  && !exam}">{{ answer }}</p>
+      <p v-for="answer in answers" :key="answer" :class="{'good-answer': (submitClick && answer === goodAnswer && !exam) || (examResult && answer === goodAnswer), 'bad-answer': (submitClick && answer !== goodAnswer && userAnswer === answer  && !exam) || (examResult && answer !== goodAnswer && userAnswer === answer)}">{{ answer }}</p>
     </div>
 </template>
 
@@ -26,6 +26,9 @@
       computed: {
         ...mapState('question', {
           submitClick: 'submitClick'
+        }),
+        ...mapState('exam', {
+          examResult: 'result'
         }),
         ...mapGetters('question', {
           exam: 'examMode'

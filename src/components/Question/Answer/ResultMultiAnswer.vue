@@ -31,12 +31,15 @@
       }),
       ...mapGetters('question', {
         exam: 'examMode'
-      })
+      }),
+      ...mapState('exam', {
+        examResult: 'result'
+      }),
     },
     methods: {
 //Checked good answer
       checkedGood(val) {
-        if (this.submitClick && !this.exam) {
+        if ((this.submitClick && !this.exam) || this.examResult) {
           for (let j = 0; j < this.goodAnswers.length; j++) {
             if (this.goodAnswers[j] === val) {
               return true;
@@ -48,7 +51,7 @@
       //Checked bad answer
       checkedBad(val) {
         let odp = false;
-        if (this.submitClick && !this.exam) {
+        if ((this.submitClick && !this.exam) || this.examResult) {
           for (let i = 0; i < this.userAnswers.length; i++) {
             for (let j = 0; j < this.goodAnswers.length; j++) {
               if (this.userAnswers[i] === val) {

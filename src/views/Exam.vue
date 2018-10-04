@@ -52,9 +52,12 @@
       },
       stop() {
         this.endExam = true;
+        this.$store.commit('exam/enableResult');
         this.$store.dispatch('question/newQuestion');
       },
       newExam() {
+        this.$store.commit('exam/disableResult');
+        this.$store.commit('exam/resetAnswersArray');
         this.examQuestions = [];
         this.count = null;
         this.isCount = false;
@@ -71,6 +74,7 @@
     mounted() {
       // QUESTION MODE
       this.$store.commit('question/setMode', this.$route.name);
+      this.$store.commit('exam/disableResult');
     }
   }
 
