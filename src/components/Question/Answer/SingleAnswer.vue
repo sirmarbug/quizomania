@@ -45,7 +45,9 @@
       },
       'selectedSingleAnswer'() {
         this.$store.commit('question/selected');
-        this.$emit('getUserAnswer', this.selectedSingleAnswer);
+        if(!this.exam) {
+          this.$emit('getUserAnswer', this.selectedSingleAnswer);
+        }
       },
       'submitClick'() {
         if (this.submitClick) {
@@ -56,7 +58,7 @@
             this.$store.commit('statistics/incrementBadAnswers');
           }
           if (this.exam) {
-            this.$emit('getAnswer', this.selectedSingleAnswer);
+            this.$store.commit('exam/addAnswer', this.selectedSingleAnswer);
           }
         }
       }

@@ -15,7 +15,7 @@
       </div>
       <!-- RESULT -->
       <div v-if="count === numberOfQuestions && endExam">
-        <exam-result :questionCount="count"></exam-result>
+        <exam-result :questionCount="count" :questions="examQuestions"></exam-result>
         <b-button variant="outline-secondary" @click="newExam">Nowy egzamin</b-button>
       </div>
     </div>

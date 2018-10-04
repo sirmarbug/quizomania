@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex';
+  import {mapState, mapGetters} from 'vuex';
 
   export default {
     name: "MultiAnswer",
@@ -35,6 +35,9 @@
     computed: {
       ...mapState('question', {
         submitClick: 'submitClick'
+      }),
+      ...mapGetters('question', {
+        exam: 'examMode'
       })
     },
     watch: {
@@ -47,7 +50,9 @@
         } else {
           this.$store.commit('question/unselected');
         }
-        this.$emit('getUserMultiAnswers', this.selectedMultiAnswers);
+        if(!this.exam) {
+          this.$emit('getUserMultiAnswers', this.selectedMultiAnswers);
+        }
       },
       'submitClick'() {
         if (this.submitClick) {
@@ -66,7 +71,7 @@
             this.$store.commit('statistics/incrementBadAnswers');
           }
           if (this.exam) {
-            this.$emit('getAnswer', this.selectedSingleAnswer);
+            this.$store.commit('exam/addAnswer', this.selectedMultiAnswers);
           }
         }
       }
