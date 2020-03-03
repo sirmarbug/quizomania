@@ -1,21 +1,30 @@
 # quizomania
 
-> A Vue.js project
+It is project to learn before a exam. Quizomania uses VueJS 2 and Bootstrap 3, Vuex, VueRouter. You can answer on closed questions with one answer or multiple answer. You have two mode: exam and study. When I wrote this project, I was learning VueJS.
 
-## Build Setup
+DEMO: [Quizomania](https://adoring-lalande-b21bb3.netlify.com)
 
+## Instalation
 ``` bash
+# clone git repo
+git clone https://github.com/sirmarbug/quizomania.git
+
 # install dependencies
 npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### Run
+``` bash
+npm run start
+```
+
+### Build project
+``` bash
+npm run build
+```
+
+## This project uses
+- VueJS 
+- Vuex
+- Vue Router
+- Bootstrap 4
